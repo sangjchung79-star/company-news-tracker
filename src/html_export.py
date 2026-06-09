@@ -86,7 +86,7 @@ def export_html(
             cards_html = _NO_ARTICLES
         else:
             cards_html = ""
-            for article in articles:
+            for article in sorted(articles, key=lambda a: a.date, reverse=True):
                 desc_block = ""
                 if article.description:
                     truncated = article.description[:200]
