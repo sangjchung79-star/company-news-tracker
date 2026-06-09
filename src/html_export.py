@@ -53,13 +53,19 @@ _SUMMARY = (
     'text-sm text-slate-600 leading-relaxed">{text}</div>'
 )
 
+_NEW_BADGE = (
+    '<span class="text-xs font-semibold bg-green-100 text-green-700'
+    ' px-2.5 py-0.5 rounded-full">New</span>'
+)
+
 _CARD = """
 <article class="bg-white rounded-xl border border-slate-100 shadow-sm p-5
-                hover:shadow-md transition-shadow duration-150">
+                hover:shadow-md transition-shadow duration-150{card_extra_class}">
   <div class="flex items-center gap-2 mb-2 flex-wrap">
     <span class="text-xs font-semibold bg-blue-50 text-blue-700
                  px-2.5 py-0.5 rounded-full">{source}</span>
     <span class="text-xs text-slate-400">{date}</span>
+    {new_badge}
   </div>
   <h3 class="font-semibold text-slate-900 leading-snug mb-1 text-base">
     <a href="{url}" target="_blank" rel="noopener noreferrer"
@@ -75,10 +81,13 @@ _NO_ARTICLES = '<p class="text-slate-400 text-sm italic">No articles found.</p>'
 def export_html(
     articles_by_company: dict[str, list[Article]],
     summaries: Optional[dict[str, str]] = None,
+    previous_urls: Optional[set[str]] = None,
     path: str = "index.html",
 ) -> None:
     if summaries is None:
         summaries = {}
+    if previous_urls is None:
+        previous_urls = set()
 
     sections_html = ""
     for company, articles in articles_by_company.items():
@@ -94,12 +103,15 @@ def export_html(
                         truncated += "…"
                     desc_block = _DESCRIPTION.format(text=html.escape(truncated))
 
+                is_new = article.url not in previous_urls
                 cards_html += _CARD.format(
                     source=html.escape(article.source),
                     date=html.escape(article.date),
                     url=html.escape(article.url),
                     title=html.escape(article.title),
                     description_block=desc_block,
+                    new_badge=_NEW_BADGE if is_new else "",
+                    card_extra_class=" border-l-4 border-l-green-400" if is_new else "",
                 )
 
         summary_text = summaries.get(company, "")
