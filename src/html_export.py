@@ -38,8 +38,8 @@ _PAGE = """<!DOCTYPE html>
 _SECTION = """
 <section>
   <div class="flex items-center gap-3 mb-4 pb-3 border-b-2 border-blue-200">
-    <img src="https://logo.clearbit.com/{domain}" alt="{company}"
-         class="h-8 w-auto object-contain"
+    <img src="https://www.google.com/s2/favicons?domain={domain}&sz=64"
+         alt="{company}" class="h-8 w-8 object-contain rounded"
          onerror="this.style.display='none'">
     <h2 class="text-lg font-semibold text-slate-700 uppercase
                tracking-widest">{company}</h2>
