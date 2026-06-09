@@ -38,10 +38,11 @@ def main() -> None:
 
     for company in COMPANIES:
         print(f"Fetching news for: {company}...")
+        query = f'"{company}"'
         articles: list[Article] = []
         if company in NEWSAPI_COMPANIES:
-            articles += fetch_articles(company)
-        articles += fetch_rss_articles(company)
+            articles += fetch_articles(query)
+        articles += fetch_rss_articles(query)
         articles_by_company[company] = deduplicate(articles)
 
     summaries: dict[str, str] = {}
