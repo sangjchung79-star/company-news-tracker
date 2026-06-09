@@ -1,0 +1,20 @@
+# Secrets — never commit API keys
+.env
+
+# Generated output — recreated every run
+articles.json
+index.html
+
+# Python bytecode cache — rebuilt automatically
+__pycache__/
+*.pyc
+
+# Tool caches
+.mypy_cache/
+.ruff_cache/
+
+# macOS system files
+.DS_Store
+
+# Claude Code internal session memory
+.claude/
